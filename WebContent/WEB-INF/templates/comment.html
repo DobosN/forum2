@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Forum Romanum Comments</title>
+		
+	<style>
+		body{
+			background-color: #262626;
+			font-family: "Times New Roman";
+			color: #daa520;
+			}
+		hr{
+			height: 3px;
+			background-color: #b3ffb3;
+			}
+			
+		.a_tag{
+			font-size: 18px;
+			color: #80b3ff;
+			}
+			
+		table{
+			border-collapse: collapse;
+			}
+			
+		th, td{
+/* 			border: 1px solid lightgreen; */
+			padding: 8px;
+			}
+			
+		th{
+			text-align: center;
+			}
+			
+		tr:nth-child(even) {
+		  	background-color: #333333;
+		}
+			
+	
+	.members{
+			color: #ffff99;
+			}
+			
+	.button{
+			font-size: 16px;
+			color: #daa520; 
+			background-color: #666666;
+			border-width: 2px;
+			border-color: #b3ffb3;
+			}
+			
+	</style>
+		
+	</head>
+	
+	<body>
+		
+		<header>
+		<a class="a_tag" th:href="@{/forum/}">Forum</a>
+		</header>
+	
+		<div class="left">
+			<form th:action="@{/comment/add}" th:object="${subcontent}" method="POST">
+			
+				<table>
+					<tr> 
+						<th colspan="3">Comment hozzáadása</th>
+					</tr>
+					<tr>
+						<th class="members">Felhasználónév</th>
+						<td>
+							<input type="text" name="userName" placeholder="Felhasználó Név" required="required"/>
+						</td>
+					</tr>
+					<tr>
+						<th class="members">Bejegyzés ID</th>
+						<td>							
+							<input type="text" name="contentId" />
+						</td> 
+					</tr>
+					<tr>
+						<th class="members">Komment</th>
+						<td>
+							<textarea name="content" rows="4" cols="20" placeholder="Ide írd a kommented..." 
+							required="required" maxlength="200"></textarea>
+<!-- 							<input type="text" name="content" placeholder="Komment" required="required"/> -->
+						</td> 
+					</tr>
+					
+					<tr>
+						<td colspan="2" align="right">
+							<input class="button" type="submit" value="Hozzáadás" >
+						</td>   
+					</tr>
+				</table>
+				
+			</form>
+		</div>
+		
+		<div class="right">
+			<table>
+			
+				<tr>
+					<th class="members" >Téma</th>
+					<th class="members" >Cím</th> 
+					<th class="members" >FELHASZNÁLÓNÉV</th>  
+				</tr>
+				
+				<tr th:each=" sc : ${subcontent}">
+					<td th:text="${sc.topicId}">ID</td>
+					<td th:text="${sc.title}">CÍM</td>
+					<td th:text="${sc.userName}">FELHASZNÁLÓ NÉV</td>
+				</tr>
+				<tr th:each=" sc : ${subcontent}">
+					<td th:text="${sc.content}">Tartalom</td>
+				</tr>
+					
+			</table>
+			
+			<br>
+			<hr>
+			<br>
+			
+			<table>
+				<thead>Kommmentek</thead>
+				
+				<tr>
+					<th class="members" >Felhasználónév</th>
+					<th class="members" >Komment</th>
+				</tr>
+				<tr th:each=" c : ${comment}"> 
+					<td th:text="${c.userName}">KOMMENTELŐ NEVE</td>
+					<td th:text="${c.content}">KOMMENT</td>
+				</tr> 
+			</table>
+			
+		</div>
+
+	</body>
+	
+</html>

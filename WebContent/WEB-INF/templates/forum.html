@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		<meta charset="UTF-8">
+		<title>Forum Romanum</title>
+		
+	<style>
+		body{
+			background-color: #262626;
+			font-family: "Times New Roman";
+			color: #daa520;
+			}
+			
+		table{
+			border-collapse: collapse;
+			}
+			
+		th, td{
+/* 			border: 1px solid lightgreen; */
+			padding: 8px;
+			}
+			
+		th{
+			text-align: center;
+			}
+			
+		tr:nth-child(even) {
+		  	background-color: #333333;
+		}
+			
+		
+	.members{
+			color: #ffff99;
+			}
+			
+	.button{
+		font-size: 16px;
+		color: #daa520; 
+		background-color: #666666;
+		border-width: 2px;
+		border-color: #b3ffb3;;
+			}
+	
+	</style>
+		
+	</head>
+	
+	<body>
+		
+		<div class="left">
+			
+			<form th:action="@{/forum/}" method="GET">		
+				<table class="search">
+					<tr>
+						<th>Keresés:</th> 
+						<td>
+							<input type="text" name="search" placeholder="Téma/Létrehozó" > 
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="right">
+							<input class="button" type="submit" value="Keresés" >
+						</td>  
+					</tr> 
+				</table>
+			</form>
+			
+			<table>
+			<tr> 
+				<thead>Témák</thead>
+				
+				<tbody>
+					<tr> 
+					<th class="members">Téma</th>
+					<th class="members">Leírás</th>
+					</tr>
+					<tr th:each="t : ${topic}">
+						<td>
+							<a th:href="@{/topic/} + ${t.topicId}" th:text="${t.topic}">TÉMA</a> 
+						</td>
+						<td th:text="${t.description}">Leírás</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<form th:action="@{/forum/add}" method="POST">
+			
+				<table>	
+					<thead>Téma hozzáadása</thead>			
+				  <tr>
+				  	<th class="members">Téma megnevezése:</th>
+				  	<td>
+				  		<input type="text" name="topic" placeholder="Témakör" required="required"> 
+				  	</td>   	
+				  </tr>
+				  
+				  <tr>
+				  	<th class="members">Téma címe</th>
+				  	<td>
+				  		<input type="text" name="title" placeholder="Cím" required="required"> 
+				  	</td>   	
+				  </tr>
+				 
+				  <tr>
+				  	<th class="members">Alkotó</th>
+				  	<td>
+				  		<input type="text" name="userName" placeholder="Felhasználó név" required="required"> 
+				  	</td>   	
+				  </tr>
+				   <tr>
+				  	<th class="members">Téma leírás:</th> 
+				  	<td>
+				  		<textarea name="description" rows="4" cols="20" placeholder="Ide írd a leírást..." 
+				  		required="required"></textarea>
+<!-- 				  		<input type="text" name="description" placeholder="Leírás (Nem szükséges)">	  -->
+				  	</td>   	
+				  </tr>
+				  <tr>
+				  	<td colspan="2" align="right">
+				  		<input class="button" type="submit" value="Hozzáadás" > 
+				  	</td>
+				  </tr>
+				</table>
+				
+			</form>
+		</div>
+		
+		<div class="right">
+			<table>
+				<thead>Bejegyzések</thead>
+				
+				<tbody>
+					<tr>
+						<th class="members">ID</th>
+						<th class="members">Cím</th>
+						<th class="members">Felhasználónév</th>
+						<th class="members">Tartalom</th>
+					</tr>
+					<tr th:each="sc : ${subcontent}">
+						<td th:text="${sc.topicId}">ID</td>
+						<td>
+							<a th:href="@{/topic/} + ${sc.topicId}"
+							 th:text="${sc.title}">CÍM</a>
+						</td>
+						<td th:text="${sc.userName}">FELHASZNÁLÓNÉV</td>
+						<td th:text="${sc.content}">TARTALOM</td> 
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+		
+	</body>
+	
+</html>

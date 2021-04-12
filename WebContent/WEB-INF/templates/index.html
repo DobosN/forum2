@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Forum Romanum Welcome</title>
+		<link rel="stylesheet" type="text/css" href="../main.css" />
+	
+	<style >
+	
+		body{
+			background-color: #262626;
+			font-family: "Times New Roman";
+			color: #daa520;
+			text-align: center; 
+			}
+			
+		a{
+			font-size: 18px;
+			color: #80b3ff;
+			}
+				
+	</style>
+	
+	</head>
+	
+	<body>
+		<h1 class="welcome">Üdvözlünk a Forum Romanum-on</h1>
+		<a th:href="@{/forum/}">Csatlakozás a fórumra</a>
+		<h5 class="description">Üdvözlünk a Forum Romanum-on <br> </h5>
+	</body>
+	
+</html>
